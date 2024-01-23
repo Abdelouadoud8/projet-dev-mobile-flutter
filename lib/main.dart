@@ -2,14 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import './views/temperature_threshold.dart';
 import './views/luminosity_threshold.dart';
 import './views/threshold_box.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,7 +32,62 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isLampOn = false; // Lamp switch state
+  bool isLampOn = false;
+
+  void _showSuccessSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('LED toggled successfully'),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  void _showErrorSnackBar(String errorMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Error: $errorMessage'),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  Future<void> sendToggleRequest(bool isLampOn) async {
+    final serverBaseUrl = "http://192.168.254.197:2000";
+    final toggleLedEndpoint = "/toggle_led";
+
+    final headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Connection': 'keep-alive',
+    };
+
+    final body = {
+      'isLampOn': isLampOn.toString(), // Pass the lamp state as a parameter
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(serverBaseUrl + toggleLedEndpoint),
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        print("LED toggled successfully");
+        _showSuccessSnackBar();
+      } else {
+        _showErrorSnackBar("Failed to toggle LED.");
+        print("Failed to toggle LED. Status code: ${response.statusCode}");
+        // Handle the failure case here
+      }
+    } catch (error) {
+      print("Error sending request: $error");
+      // Handle any errors that occur during the request
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +212,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             setState(() {
                               isLampOn = value;
                             });
+
+                            // Send a POST request to the server
+                            sendToggleRequest(isLampOn);
                           },
                         ),
                       ],
@@ -204,6 +264,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
+
+/// COMPONENTS AND MODELS ///
 /// Sensors Values ///
 class SensorsBox extends StatefulWidget {
   @override

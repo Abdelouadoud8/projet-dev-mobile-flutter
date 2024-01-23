@@ -52,7 +52,7 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
         print('Luminosity seuil saved successfully');
       } else {
         // Handle error here
-        _showErrorSnackBar("Threshold has not been updated");
+        _showErrorSnackBar("Failed to update the threshold");
         print('Error: ${response.reasonPhrase}');
       }
     } catch (e) {
