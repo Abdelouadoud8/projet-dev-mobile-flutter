@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:projet_mobile/views/primary_button.dart';
+
 
 class TemperatureThreshold extends StatefulWidget {
   @override
@@ -49,6 +51,9 @@ class _TemperatureThresholdState extends State<TemperatureThreshold> {
         // Successful response
         _showSuccessSnackBar();
         print('Temperature seuil saved successfully');
+
+        // Clear the input field after successful submission
+        _thresholdController.clear();
       } else {
         // Handle error here
         _showErrorSnackBar("Threshold has not been updated");
@@ -60,6 +65,7 @@ class _TemperatureThresholdState extends State<TemperatureThreshold> {
       print('Error: $e');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +132,8 @@ class _TemperatureThresholdState extends State<TemperatureThreshold> {
 
             SizedBox(height: 24),
             // Update button at the bottom
-            ElevatedButton(
+            PrimaryButton(
               onPressed: _postSeuilTemp,
-              child: Text('Update Threshold'),
             ),
           ],
         ),

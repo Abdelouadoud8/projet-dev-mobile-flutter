@@ -7,6 +7,9 @@ import 'package:http/http.dart' as http;
 import './views/temperature_threshold.dart';
 import './views/luminosity_threshold.dart';
 import './views/threshold_box.dart';
+import './model/sensor_data.dart';
+
+import './http_util.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,58 +37,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isLampOn = false;
 
-  void _showSuccessSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('LED toggled successfully'),
-        backgroundColor: Colors.green,
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String errorMessage) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Error: $errorMessage'),
-        backgroundColor: Colors.red,
-      ),
-    );
-  }
-
   Future<void> sendToggleRequest(bool isLampOn) async {
-    final serverBaseUrl = "http://192.168.254.197:2000";
-    final toggleLedEndpoint = "/toggle_led";
-
-    final headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': '*/*',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'Connection': 'keep-alive',
-    };
-
-    final body = {
-      'isLampOn': isLampOn.toString(), // Pass the lamp state as a parameter
-    };
-
-    try {
-      final response = await http.post(
-        Uri.parse(serverBaseUrl + toggleLedEndpoint),
-        headers: headers,
-        body: body,
-      );
-
-      if (response.statusCode == 200) {
-        print("LED toggled successfully");
-        _showSuccessSnackBar();
-      } else {
-        _showErrorSnackBar("Failed to toggle LED.");
-        print("Failed to toggle LED. Status code: ${response.statusCode}");
-        // Handle the failure case here
-      }
-    } catch (error) {
-      print("Error sending request: $error");
-      // Handle any errors that occur during the request
-    }
+    await HttpUtil.sendToggleRequest(context, isLampOn);
   }
 
 
@@ -102,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Avatar + Titles ///
+            /// Avatar & Greetings ///
             Row(
                 children: [
                   Container(
@@ -148,14 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 32),
 
 
-            /// Censors values container
+            /// Sensors values container
             SensorsBox(),
             SizedBox(height: 30),
 
-            /// Buttons and containers ///
+            /// Manage Sensors values and states ///
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  /// Section title ///
                   Text(
                     'Manage Sensors',
                     textAlign: TextAlign.center,
@@ -167,6 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 16),
+
+                  /// Toggle LED switch box ///
                   Container(
                     padding: const EdgeInsets.all(12),
                     clipBehavior: Clip.antiAlias,
@@ -222,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 24),
 
-                  /// Temp and Luminosity boxes ///
+                  /// Temp and Luminosity threshold boxes ///
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -231,7 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           value: 22,
                           icon: Icons.thermostat_outlined,
                           onPressed: () {
-                            // Navigate to the SecondPage when the box is clicked
                             Navigator.pushNamed(context, '/temperature_threshold');
                           },
                       ),
@@ -241,7 +196,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           value: 22,
                           icon: Icons.wb_sunny_outlined,
                         onPressed: () {
-                          // Navigate to the SecondPage when the box is clicked
                           Navigator.pushNamed(context, '/luminosity_threshold');
                         },
                       ),
@@ -249,8 +203,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
             ),
-
-
           ],
         ),
       ),
@@ -406,20 +358,6 @@ class _SensorsBoxState extends State<SensorsBox> {
   }
 }
 
-
-
-/// Sensor Data Model ///
-class SensorData {
-  double value;
-  String unit;
-
-  SensorData({required this.value, required this.unit});
-
-  factory SensorData.fromJson(Map<String, dynamic> json) {
-    return SensorData(value: json['value'] as double, unit: json['unit']);
-  }
-}
-
 /// Initiation of luminosity and temperature ///
 SensorData luminositySensorData = SensorData(
   value: 23,
@@ -484,7 +422,6 @@ class SensorDisplay extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-
       ],
     );
   }

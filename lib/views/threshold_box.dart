@@ -37,13 +37,13 @@ class ThresholdBox extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(6),
-                    color: Color(0xFFF0F2FF), // Replace with your desired background color
+                    color: Color(0xFFF0F2FF),
                   ),
-                  padding: EdgeInsets.all(8), // Adjust the padding as needed
+                  padding: EdgeInsets.all(8),
                   child: Icon(
                     icon,
                     size: 28,
-                    color: Color(0xFF0578FF), // You can adjust the icon color
+                    color: Color(0xFF0578FF),
                   ),
                 ),
                 SizedBox(height:8),

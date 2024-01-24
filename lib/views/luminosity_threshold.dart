@@ -28,7 +28,7 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
     );
   }
 
-  void _postSeuilTemp() async {
+  void _postSeuilLum() async {
     final serverBaseUrl = "http://192.168.254.197:2000"; // Replace with your server URL
     final threshold = _thresholdController.text;
 
@@ -50,6 +50,9 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
         // Successful response
         _showSuccessSnackBar();
         print('Luminosity seuil saved successfully');
+
+        // Clear the input field after successful submission
+        _thresholdController.clear();
       } else {
         // Handle error here
         _showErrorSnackBar("Failed to update the threshold");
@@ -127,9 +130,8 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
 
             SizedBox(height: 24),
             // Update button at the bottom
-            ElevatedButton(
-              onPressed: _postSeuilTemp,
-              child: Text('Update Threshold'),
+            PrimaryButton(
+              onPressed: _postSeuilLum,
             ),
           ],
         ),
