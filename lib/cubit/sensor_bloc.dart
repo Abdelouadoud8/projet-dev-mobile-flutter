@@ -69,11 +69,6 @@ class SensorBloc extends Bloc<SensorEvent, SensorState> {
             temperatureSensorData.value,
             luminositySensorData.value,
           );
-
-          sensorDataHistory.add(SensorState(
-            luminositySensorData: luminositySensorData,
-            temperatureSensorData: temperatureSensorData,
-          ));
         } else {
           throw Exception(
               'Failed to load data. Luminosity Status Code: ${luminosityResponse.statusCode}, Temperature Status Code: ${temperatureResponse.statusCode}');

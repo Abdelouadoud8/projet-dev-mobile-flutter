@@ -97,10 +97,6 @@ class _SensorsBoxState extends State<SensorsBox> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: showHistoricalData,
-                  child: Text('Show Historical Data'),
-                ),
               ],
             )
         );

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_mobile/views/sensors_box.dart';
+import 'package:projet_mobile/views/temp_lum_history.dart';
 
 import './views/temperature_threshold.dart';
 import './views/luminosity_threshold.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/temperature_threshold': (context) => TemperatureThreshold(),
         '/luminosity_threshold': (context) => LuminosityThreshold(),
+        '/history': (context) => TempLumHistory(),
       },
     );
   }
@@ -137,62 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 16),
 
-                /// Toggle LED switch box ///
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFFCFCFC),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1, color: Color(0xFFE0E0E0)),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(6),
-                              color: Color(0xFFF0F2FF), // Replace with your desired background color
-                            ),
-                            padding: EdgeInsets.all(8), // Adjust the padding as needed
-                            child: Icon(
-                              Icons.lightbulb_outline_rounded,
-                              size: 28,
-                              color: Color(0xFF0578FF), // You can adjust the icon color
-                            ),
-                          ),
-                          SizedBox(height:8),
-                          Text(
-                            'Lamp',
-                            style: TextStyle(
-                              color: Color(0xFF262626),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
-                        ],
-                      ),
-                      Switch(
-                        value: isLampOn,
-                        onChanged: (bool value) {
-                          setState(() {
-                            isLampOn = value;
-                          });
-
-                          // Send a POST request to the server
-                          sendToggleRequest(isLampOn);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 24),
-
                 /// Temp and Luminosity threshold boxes ///
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,6 +158,76 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icons.wb_sunny_outlined,
                       onPressed: () {
                         Navigator.pushNamed(context, '/luminosity_threshold');
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Container(
+                      padding: const EdgeInsets.all(12),
+                      clipBehavior: Clip.antiAlias,
+                      decoration: ShapeDecoration(
+                        color: Color(0xFFFCFCFC),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(width: 1, color: Color(0xFFE0E0E0)),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Color(0xFFF0F2FF), // Replace with your desired background color
+                                ),
+                                padding: EdgeInsets.all(8), // Adjust the padding as needed
+                                child: Icon(
+                                  Icons.lightbulb_outline_rounded,
+                                  size: 28,
+                                  color: Color(0xFF0578FF), // You can adjust the icon color
+                                ),
+                              ),
+                              SizedBox(height:8),
+                              Text(
+                                'Lamp',
+                                style: TextStyle(
+                                  color: Color(0xFF262626),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )
+                            ],
+                          ),
+                          Switch(
+                            value: isLampOn,
+                            onChanged: (bool value) {
+                              setState(() {
+                                isLampOn = value;
+                              });
+
+                              // Send a POST request to the server
+                              sendToggleRequest(isLampOn);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    ),
+                    SizedBox(width: 16),
+                    ThresholdBox(
+                      label: "History",
+                      value: 22,
+                      icon: Icons.insert_drive_file_outlined,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/history');
                       },
                     ),
                   ],
