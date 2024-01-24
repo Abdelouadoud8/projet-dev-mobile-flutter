@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_mobile/views/single_sensor.dart';
 
 import '../cubit/sensor_bloc.dart';
 
-/// COMPONENTS AND MODELS ///
 /// Sensors Values ///
 class SensorsBox extends StatefulWidget {
   @override

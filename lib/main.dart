@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projet_mobile/views/sensors_box.dart';
@@ -10,8 +11,13 @@ import './views/threshold_box.dart';
 
 import './http_util.dart';
 import 'cubit/sensor_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import './services/firestore_service.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     BlocProvider(
       create: (context) => SensorBloc(),
@@ -19,6 +25,8 @@ void main() {
     ),
   );
 }
+
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -48,6 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseService _firebaseService = FirebaseService();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -208,6 +218,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+
+            /// TESTING ///
+            /*Column(
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    // _firebaseService.addSensorData('WORKKKINNGGG, Firebase!');
+                  },
+                  child: Text('Add Data to Firestore'),
+                ),
+                StreamBuilder<QuerySnapshot<Object?>>(
+                  stream: _firebaseService.getData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+
+                    final data = snapshot.data?.docs ?? []; // Use null-safe operator and provide a default value
+                    return Column(
+                      children: data.map((doc) {
+                        final message = doc['message'] as String? ?? ''; // Cast to String and handle null
+                        return Text(message);
+                      }).toList(),
+                    );
+                  },
+                )
+              ],
+            ),*/
           ],
         ),
       ),

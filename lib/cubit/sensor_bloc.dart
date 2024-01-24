@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../http_util.dart';
 import '../model/sensor_data.dart';
+import '../services/firestore_service.dart';
 
 enum SensorEvent { fetch }
 
@@ -62,6 +63,11 @@ class SensorBloc extends Bloc<SensorEvent, SensorState> {
           yield SensorState(
             luminositySensorData: luminositySensorData,
             temperatureSensorData: temperatureSensorData,
+          );
+
+          FirebaseService().addSensorData(
+            temperatureSensorData.value,
+            luminositySensorData.value,
           );
 
           sensorDataHistory.add(SensorState(
