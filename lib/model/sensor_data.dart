@@ -1,5 +1,5 @@
 class SensorData {
-  double value;
+  num value;
   String unit;
 
   SensorData({required this.value, required this.unit});
