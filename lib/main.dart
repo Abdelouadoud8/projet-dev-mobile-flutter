@@ -237,7 +237,8 @@ class _SensorsBoxState extends State<SensorsBox> {
     'Connection': 'keep-alive',
   };
 
-  Future<void> fetchLuminosityData() async {
+  /// Lum and Temp separated ///
+  /*Future<void> fetchLuminosityData() async {
     try {
       final response = await http.get(
         Uri.parse('http://192.168.254.197:2000/luminosity'),
@@ -276,17 +277,46 @@ class _SensorsBoxState extends State<SensorsBox> {
       print('Error: $e');
     }
   }
+  */
+
+  /// Retrieve Lum and Temp together ///
+  Future<void> fetchData() async {
+    try {
+      final luminosityResponse = await http.get(
+        Uri.parse('http://192.168.254.197:2000/luminosity'),
+        headers: headers,
+      );
+
+      final temperatureResponse = await http.get(
+        Uri.parse('http://192.168.254.197:2000/temperature'),
+        headers: headers,
+      );
+
+      if (luminosityResponse.statusCode == 200 || temperatureResponse.statusCode == 200) {
+        final Map<String, dynamic> luminosityData = json.decode(luminosityResponse.body);
+        final Map<String, dynamic> temperatureData = json.decode(temperatureResponse.body);
+
+        setState(() {
+          luminositySensorData = SensorData.fromJson(luminosityData);
+          temperatureSensorData = SensorData.fromJson(temperatureData);
+        });
+      } else {
+        throw Exception('Failed to load data. Luminosity Status Code: ${luminosityResponse.statusCode}, Temperature Status Code: ${temperatureResponse.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
-    fetchLuminosityData();
-    fetchTemperatureData(); // Fetch temperature data immediately when the widget is created
+    fetchData();
+    // Fetch temperature data immediately when the widget is created
 
     _timer = Timer.periodic(Duration(seconds: 10), (timer) {
-      fetchLuminosityData();
-      fetchTemperatureData(); // Fetch temperature data every 10 seconds
+      fetchData();
     });
   }
 
