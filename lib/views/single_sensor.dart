@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../model/sensor_data.dart';
 
-class SensorDisplay extends StatelessWidget {
+class SingleSensor extends StatelessWidget {
   final SensorData sensorData;
   final String label;
   final IconData icon;
   final Color color;
 
-  const SensorDisplay({
+  const SingleSensor({
     Key? key,
     required this.label,
     /* required this.value,

@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:projet_mobile/views/sensor_box.dart';
-import 'package:projet_mobile/views/sensor_display.dart';
+import 'package:projet_mobile/views/sensors_box.dart';
+import 'package:projet_mobile/views/single_sensor.dart';
 
 import './views/temperature_threshold.dart';
 import './views/luminosity_threshold.dart';
