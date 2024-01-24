@@ -1,16 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:projet_mobile/views/sensors_box.dart';
-import 'package:projet_mobile/views/single_sensor.dart';
 
 import './views/temperature_threshold.dart';
 import './views/luminosity_threshold.dart';
 import './views/threshold_box.dart';
-import './model/sensor_data.dart';
 
 import './http_util.dart';
 import 'cubit/sensor_bloc.dart';
@@ -58,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Mobile project"),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    ),
     );
   }
 }

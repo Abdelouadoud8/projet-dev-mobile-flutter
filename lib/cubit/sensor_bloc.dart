@@ -25,6 +25,8 @@ class SensorState {
 }
 
 class SensorBloc extends Bloc<SensorEvent, SensorState> {
+  List<SensorState> sensorDataHistory = [];
+
   SensorBloc() : super(SensorState.initial());
 
   @override
@@ -61,6 +63,11 @@ class SensorBloc extends Bloc<SensorEvent, SensorState> {
             luminositySensorData: luminositySensorData,
             temperatureSensorData: temperatureSensorData,
           );
+
+          sensorDataHistory.add(SensorState(
+            luminositySensorData: luminositySensorData,
+            temperatureSensorData: temperatureSensorData,
+          ));
         } else {
           throw Exception(
               'Failed to load data. Luminosity Status Code: ${luminosityResponse.statusCode}, Temperature Status Code: ${temperatureResponse.statusCode}');
@@ -70,4 +77,6 @@ class SensorBloc extends Bloc<SensorEvent, SensorState> {
       }
     }
   }
+
+
 }

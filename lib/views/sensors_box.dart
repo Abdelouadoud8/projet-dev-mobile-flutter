@@ -28,6 +28,18 @@ class _SensorsBoxState extends State<SensorsBox> {
     });
   }
 
+  // Function to show historical data
+  void showHistoricalData() {
+    // Access the historical sensor data list from the SensorBloc
+    final historyData = context.read<SensorBloc>().sensorDataHistory;
+
+    /// Display the history
+    for (var data in historyData) {
+      print('Luminosity: ${data.luminositySensorData.value} ${data.luminositySensorData.unit}');
+      print('Temperature: ${data.temperatureSensorData.value} ${data.temperatureSensorData.unit}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SensorBloc, SensorState>(
@@ -86,6 +98,10 @@ class _SensorsBoxState extends State<SensorsBox> {
                       label: 'Luminosity',
                     ),
                   ],
+                ),
+                ElevatedButton(
+                  onPressed: showHistoricalData,
+                  child: Text('Show Historical Data'),
                 ),
               ],
             )

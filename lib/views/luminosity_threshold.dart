@@ -28,7 +28,8 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
         title: Text('Luminosity Threshold'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: <Widget>[
@@ -92,6 +93,7 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
           ],
         ),
       ),
+    ),
     );
   }
 }
