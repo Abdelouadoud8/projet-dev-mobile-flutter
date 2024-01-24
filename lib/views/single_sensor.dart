@@ -8,6 +8,7 @@ class SingleSensor extends StatelessWidget {
   final String label;
   final IconData icon;
   final Color color;
+  final Color coloricon;
 
   const SingleSensor({
     Key? key,
@@ -17,6 +18,7 @@ class SingleSensor extends StatelessWidget {
     required this.sensorData,
     required this.icon,
     required this.color,
+    required this.coloricon,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class SingleSensor extends StatelessWidget {
           child: Icon(
             icon,
             size: 40,
-            color: Colors.white,
+            color: coloricon,
           ),
         ),
         SizedBox(height: 10),

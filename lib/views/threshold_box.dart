@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 class ThresholdBox extends StatelessWidget {
   final String label;
-  final int value;
   final IconData icon;
   final VoidCallback? onPressed; // Optional callback for onPressed
 
   const ThresholdBox({
     Key? key,
     required this.label,
-    required this.value,
     required this.icon,
     this.onPressed,
   }) : super(key: key);
@@ -56,25 +54,6 @@ class ThresholdBox extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height:8),
-                Row(
-                  children: [
-                    Text(
-                      'Threshold: $value',
-                      style: TextStyle(
-                        color: Color(0xFF7E7E7E),
-                        fontSize: 16,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width:4),
-                    Icon(
-                      Icons.arrow_circle_right_outlined,
-                      size: 20,
-                      color: Color(0xFF7E7E7E), // You can adjust the icon color
-                    ),
-                  ],
-                ),
               ],
             ),
           )

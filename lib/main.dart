@@ -145,7 +145,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     ThresholdBox(
                       label: "Temperature Threshold",
-                      value: 22,
                       icon: Icons.thermostat_outlined,
                       onPressed: () {
                         Navigator.pushNamed(context, '/temperature_threshold');
@@ -154,7 +153,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(width: 16),
                     ThresholdBox(
                       label: "Luminosity Threshold",
-                      value: 22,
                       icon: Icons.wb_sunny_outlined,
                       onPressed: () {
                         Navigator.pushNamed(context, '/luminosity_threshold');
@@ -224,7 +222,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(width: 16),
                     ThresholdBox(
                       label: "History",
-                      value: 22,
                       icon: Icons.insert_drive_file_outlined,
                       onPressed: () {
                         Navigator.pushNamed(context, '/history');
