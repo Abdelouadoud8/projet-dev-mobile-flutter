@@ -109,11 +109,9 @@ class HttpUtil {
       } else {
         _showErrorSnackBar(context, "Failed to update the temperature threshold.");
         print("Failed to update the temperature threshold. Status code: ${response.statusCode}");
-        // Handle the failure case here
       }
     } catch (error) {
       print("Error sending request: $error");
-      // Handle any errors that occur during the request
     }
   }
 }

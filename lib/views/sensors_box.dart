@@ -28,7 +28,6 @@ class _SensorsBoxState extends State<SensorsBox> {
 
   // Function to show historical data
   void showHistoricalData() {
-    // Access the historical sensor data list from the SensorBloc
     final historyData = context.read<SensorBloc>().sensorDataHistory;
 
     /// Display the history
@@ -108,7 +107,6 @@ class _SensorsBoxState extends State<SensorsBox> {
 
   @override
   void dispose() {
-    // Cancel the timer when the widget is disposed to prevent memory leaks
     _timer.cancel();
     super.dispose();
   }

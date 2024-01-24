@@ -17,12 +17,14 @@ class _TempLumHistoryState extends State<TempLumHistory> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Firebase Data Page'),
+        centerTitle: true,
+        backgroundColor: Color(0xFF8F42F1),
       ),
       body: Padding(
           padding: EdgeInsets.all(20),
           child: StreamBuilder<QuerySnapshot>(
-        stream: firebaseService.getData(),
-        builder: (context, snapshot) {
+          stream: firebaseService.getData(),
+          builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
@@ -72,18 +74,19 @@ class _TempLumHistoryState extends State<TempLumHistory> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
+                        SizedBox(height: 8),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(child:
                               Column(
                                 children: [
-                                  Icon(Icons.thermostat, size: 32, color: Colors.blue),
+                                  Icon(Icons.thermostat, size: 40, color: Color(0xFFFF3333)),
                                   SizedBox(height: 4),
                                   Text(
                                     'Temperature',
                                     style: TextStyle(
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF8D8D8D),
                                       fontSize: 18,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,
@@ -91,9 +94,9 @@ class _TempLumHistoryState extends State<TempLumHistory> {
                                   ),
                                   SizedBox(height: 8),
                                   Text(
-                                    "$temperature",
+                                    "$temperature °C",
                                     style: TextStyle(
-                                      color: Color(0xFF0578FF),
+                                      color: Color(0xFF262626),
                                       fontSize: 22,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,
@@ -105,12 +108,12 @@ class _TempLumHistoryState extends State<TempLumHistory> {
                             Expanded(
                               child: Column(
                                 children: [
-                                  Icon(Icons.lightbulb, size: 32, color: Colors.orange),
+                                  Icon(Icons.wb_sunny_outlined, size: 40, color: Colors.orange),
                                   SizedBox(height: 4),
                                   Text(
                                     'Luminosity',
                                     style: TextStyle(
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF8D8D8D),
                                       fontSize: 18,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,
@@ -118,9 +121,9 @@ class _TempLumHistoryState extends State<TempLumHistory> {
                                   ),
                                   SizedBox(height: 4),
                                   Text(
-                                    "$luminosity",
+                                    "$luminosity W",
                                     style: TextStyle(
-                                      color: Color(0xFF0578FF),
+                                      color: Color(0xFF262626),
                                       fontSize: 22,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,

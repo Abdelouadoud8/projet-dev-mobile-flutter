@@ -27,6 +27,7 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
       appBar: AppBar(
         title: Text('Luminosity Threshold'),
         centerTitle: true,
+        backgroundColor: Color(0xFF8F42F1),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -86,7 +87,6 @@ class _LuminosityThresholdState extends State<LuminosityThreshold> {
             ),
 
             SizedBox(height: 24),
-            // Update button at the bottom
             PrimaryButton(
               onPressed: _postSeuilLum,
             ),

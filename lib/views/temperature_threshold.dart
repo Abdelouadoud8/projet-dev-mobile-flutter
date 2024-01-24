@@ -33,6 +33,7 @@ class _TemperatureThresholdState extends State<TemperatureThreshold> {
       appBar: AppBar(
         title: Text('Temperature Threshold'),
         centerTitle: true,
+        backgroundColor: Color(0xFF8F42F1),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,7 +45,7 @@ class _TemperatureThresholdState extends State<TemperatureThreshold> {
             SizedBox(height: 24), // Spacing between image and text
             // Main text title
             Text(
-              'Change Luminosity Threshold',
+              'Change Temperature Threshold',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

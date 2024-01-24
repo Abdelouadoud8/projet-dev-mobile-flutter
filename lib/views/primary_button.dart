@@ -13,16 +13,16 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed, // Call the onPressed callback when the button is pressed
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         minimumSize: Size(342, 52),
-        primary: Color(0xFF2F80ED),
+        primary: Color(0xFF8F42F1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
       child: Text(
-        label ?? 'Update Threshold', // Use the provided label or a default one
+        label ?? 'Update Threshold',
         style: TextStyle(
           color: Colors.white,
           fontSize: 16,

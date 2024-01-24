@@ -41,7 +41,7 @@ class ThresholdBox extends StatelessWidget {
                   child: Icon(
                     icon,
                     size: 28,
-                    color: Color(0xFF0578FF),
+                    color: Color(0xFF8F42F1),
                   ),
                 ),
                 SizedBox(height:8),

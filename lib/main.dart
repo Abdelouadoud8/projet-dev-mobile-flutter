@@ -65,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Mobile project"),
         centerTitle: true,
+        backgroundColor: Color(0xFF8F42F1),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -184,13 +185,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(6),
-                                  color: Color(0xFFF0F2FF), // Replace with your desired background color
+                                  color: Color(0xFFF0F2FF),
                                 ),
-                                padding: EdgeInsets.all(8), // Adjust the padding as needed
+                                padding: EdgeInsets.all(8),
                                 child: Icon(
                                   Icons.lightbulb_outline_rounded,
                                   size: 28,
-                                  color: Color(0xFF0578FF), // You can adjust the icon color
+                                  color: Color(0xFF8F42F1),
                                 ),
                               ),
                               SizedBox(height:8),
@@ -207,11 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Switch(
                             value: isLampOn,
                             onChanged: (bool value) {
-                              setState(() {
-                                isLampOn = value;
-                              });
-
-                              // Send a POST request to the server
+                              setState(() {isLampOn = value;});
                               sendToggleRequest(isLampOn);
                             },
                           ),
@@ -231,38 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-
-            /// TESTING ///
-            /*Column(
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    // _firebaseService.addSensorData('WORKKKINNGGG, Firebase!');
-                  },
-                  child: Text('Add Data to Firestore'),
-                ),
-                StreamBuilder<QuerySnapshot<Object?>>(
-                  stream: _firebaseService.getData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    }
-
-                    final data = snapshot.data?.docs ?? []; // Use null-safe operator and provide a default value
-                    return Column(
-                      children: data.map((doc) {
-                        final message = doc['message'] as String? ?? ''; // Cast to String and handle null
-                        return Text(message);
-                      }).toList(),
-                    );
-                  },
-                )
-              ],
-            ),*/
           ],
         ),
       ),
