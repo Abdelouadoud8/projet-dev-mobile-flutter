@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projet_mobile/views/primary_button.dart';
-import 'package:http/http.dart' as http;
+import '../http_util.dart';
 
 class LuminosityThreshold extends StatefulWidget {
   @override
@@ -10,57 +10,13 @@ class LuminosityThreshold extends StatefulWidget {
 class _LuminosityThresholdState extends State<LuminosityThreshold> {
   final TextEditingController _thresholdController = TextEditingController();
 
-  void _showSuccessSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Luminosity threshold saved successfully'),
-        backgroundColor: Colors.green,
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String errorMessage) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Error: $errorMessage'),
-        backgroundColor: Colors.red,
-      ),
-    );
-  }
-
   void _postSeuilLum() async {
-    final serverBaseUrl = "http://192.168.254.197:2000"; // Replace with your server URL
     final threshold = _thresholdController.text;
 
     try {
-      final response = await http.post(
-        Uri.parse('$serverBaseUrl/seuil_lum'),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': '*/*',
-          'Accept-Encoding': 'gzip, deflate, br',
-          'Connection': 'keep-alive',
-        },
-        body: {
-          'seuil_lum': threshold,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        // Successful response
-        _showSuccessSnackBar();
-        print('Luminosity seuil saved successfully');
-
-        // Clear the input field after successful submission
-        _thresholdController.clear();
-      } else {
-        // Handle error here
-        _showErrorSnackBar("Failed to update the threshold");
-        print('Error: ${response.reasonPhrase}');
-      }
+      await HttpUtil.sendLuminosityThreshold(context, threshold);
+      _thresholdController.clear();
     } catch (e) {
-      // Handle network or other errors
-      _showErrorSnackBar(e.toString());
       print('Error: $e');
     }
   }
