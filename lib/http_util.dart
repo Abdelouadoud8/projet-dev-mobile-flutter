@@ -11,7 +11,7 @@ final headers = {
   'Accept-Encoding': 'gzip, deflate, br',
   'Connection': 'keep-alive',
 };
-final serverBaseUrl = "http://192.168.254.197:2000";
+final serverBaseUrl = "http://192.168.132.143";
 
 void _showSuccessSnackBar(BuildContext context,String SuccessMessage) {
   ScaffoldMessenger.of(context).showSnackBar(

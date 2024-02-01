@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 48.0,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(
-                      "https://scontent.falg1-2.fna.fbcdn.net/v/t39.30808-6/382242246_3562506713988872_6711977455142897039_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=tT1VC0ocIeEAX9-E2V9&_nc_zt=23&_nc_ht=scontent.falg1-2.fna&oh=00_AfDH_4X0sIDdJgES2U3j5AJVRKNVGl-1WeCxfhQA1McFQA&oe=65B3E034",                        // Replace with the actual image URL
+                      "https://scontent-cdg4-2.xx.fbcdn.net/v/t39.30808-1/382242246_3562506713988872_6711977455142897039_n.jpg?stp=c149.0.480.480a_dst-jpg_p480x480&_nc_cat=109&ccb=1-7&_nc_sid=5740b7&_nc_ohc=QFMUDqvz3yEAX-SByic&_nc_ht=scontent-cdg4-2.xx&oh=00_AfBNR7juELnO1ToEDGddnO3pg8K7wQnQR6P2b72FdX8YEQ&oe=65C0FF72",                        // Replace with the actual image URL
                     ),
                   ),
                 ),

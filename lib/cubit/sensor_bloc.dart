@@ -35,12 +35,12 @@ class SensorBloc extends Bloc<SensorEvent, SensorState> {
     if (event == SensorEvent.fetch) {
       try {
         final luminosityResponse = await http.get(
-          Uri.parse('http://192.168.254.197:2000/luminosity'),
+          Uri.parse('http://192.168.132.143/luminosity'),
           headers: headers,
         );
 
         final temperatureResponse = await http.get(
-          Uri.parse('http://192.168.254.197:2000/temperature'),
+          Uri.parse('http://192.168.132.143/temperature'),
           headers: headers,
         );
 

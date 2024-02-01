@@ -47,9 +47,10 @@ class _TempLumHistoryState extends State<TempLumHistory> {
               final luminosity = document['luminosity'];
               final timestamp = document['timestamp'] as Timestamp;
               final date = timestamp.toDate();
+              final eightDaysAgo = date.subtract(Duration(days: 8));
 
               // Format the date to show only date + time (hours:minutes)
-              final formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(date);
+              final formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(eightDaysAgo);
 
               return Column(
                 children: [
@@ -94,7 +95,7 @@ class _TempLumHistoryState extends State<TempLumHistory> {
                                   ),
                                   SizedBox(height: 8),
                                   Text(
-                                    "$temperature °C",
+                                    "${temperature.toStringAsFixed(2)} °C",
                                     style: TextStyle(
                                       color: Color(0xFF262626),
                                       fontSize: 22,
@@ -121,7 +122,7 @@ class _TempLumHistoryState extends State<TempLumHistory> {
                                   ),
                                   SizedBox(height: 4),
                                   Text(
-                                    "$luminosity W",
+                                    "${luminosity.toStringAsFixed(2)} W",
                                     style: TextStyle(
                                       color: Color(0xFF262626),
                                       fontSize: 22,
